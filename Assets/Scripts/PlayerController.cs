@@ -58,6 +58,14 @@ public class PlayerController : MonoBehaviour
     // if (onTruck) rb.velocity = otherrb.velocity;
     MovePlayer();
     vel = rb.velocity;
+    if (GetComponent<HingeJoint>() != null)
+    {
+      if (GetComponent<HingeJoint>().connectedBody == null)
+      {
+        Destroy(GetComponent<HingeJoint>());
+        rb.mass = 0.01f;
+      }
+    }
   }
 
   private void MyInput()
