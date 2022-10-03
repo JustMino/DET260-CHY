@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 5502917815530072687}
   - component: {fileID: 3278084335030309550}
   - component: {fileID: 3278084335030309554}
+  - component: {fileID: 6838483306022249134}
   m_Layer: 3
   m_Name: Traffic B - Truck
   m_TagString: Truck
@@ -430,6 +431,24 @@ MonoBehaviour:
   curSpeed: 0
   vel: {x: 0, y: 0, z: 0}
   lookDownThisFar: 0.5
+  particles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!65 &6838483306022249134
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416670154853249419}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9154472, y: 0.82071686, z: 0.4251938}
+  m_Center: {x: 0.055883408, y: 0.8437576, z: 4.256565}
 --- !u!1 &7416675270774885301
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +754,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 101130, guid: d7bf18dd20422304ea868e95c3518f19, type: 3}
       propertyPath: m_Name
-      value: FX_TireSmoke
+      value: FX_TireSmoke (0)
       objectReference: {fileID: 0}
     - target: {fileID: 101130, guid: d7bf18dd20422304ea868e95c3518f19, type: 3}
       propertyPath: m_Layer

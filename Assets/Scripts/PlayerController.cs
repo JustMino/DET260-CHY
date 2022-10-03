@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
       normalStruck = otherContact.normal;
       if (normalStruck.y > 0.9f)
       {
+        other.gameObject.GetComponent<TruckMovement>().player = gameObject;
         onTruck = true;
         otherrb = other.gameObject.GetComponent<Rigidbody>();
         var hj = gameObject.AddComponent<HingeJoint>();
@@ -143,6 +144,7 @@ public class PlayerController : MonoBehaviour
   {
     if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
     {
+      other.GetComponent<TruckMovement>().player = null;
       otherrb = null;
       grounded = false;
       onTruck = false;

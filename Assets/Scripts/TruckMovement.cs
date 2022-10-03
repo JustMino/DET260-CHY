@@ -7,6 +7,9 @@ public class TruckMovement : MonoBehaviour
   [Header("Needed Components")]
   Rigidbody rb;
 
+  [Header("Player")]
+  public GameObject player;
+
   [Header("Speed Settings")]
   [SerializeField] float baseBusSpeed = 1f;
   [SerializeField] float speedVariation = 0.2f;
@@ -15,8 +18,10 @@ public class TruckMovement : MonoBehaviour
 
   [Header("Local Vector Settings so we can set each value specific to each Prefab")]
   [SerializeField] float lookDownThisFar = 0.5f;
-  private Vector3 directionToGo;
-  private Vector3 directionIsDown;
+
+  [Header("Particle related")]
+  [SerializeField] GameObject[] particles = new GameObject[4];
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +29,10 @@ public class TruckMovement : MonoBehaviour
       rb = GetComponent<Rigidbody>();
       baseBusSpeed = Random.Range(baseBusSpeed - speedVariation, baseBusSpeed + speedVariation);
       curSpeed = baseBusSpeed;
+      for (int i = 0; i < 4; i++)
+      {
+        particles[i] = transform.Find("FX_TireSmoke (" + i + ")").gameObject;
+      }
     }
 
     // Update is called once per frame
@@ -37,15 +46,31 @@ public class TruckMovement : MonoBehaviour
       if (Physics.Raycast(transform.position, transform.up * -1f, lookDownThisFar))
       {
         // Debug.Log("Touched ground");
+        foreach (GameObject go in particles)
+        {
+          go.SetActive(true);
+        }
         rb.AddForce(transform.forward * curSpeed, ForceMode.VelocityChange);
       }
       else
       {
-        // Debug.Log("Not touching ground");
+        foreach (GameObject go in particles)
+        {
+          go.SetActive(false);
+        }
       }
       // rb.velocity = rb.velocity.normalized * 40f;
       vel = rb.velocity;
       vel.z = Mathf.Clamp(vel.z, 0f, 40f);
       rb.velocity = vel;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+      if (player != null)
+      {
+        Destroy(player.GetComponent<HingeJoint>());
+        player.GetComponent<Rigidbody>().mass = 0.01f;
+      }
     }
 }
