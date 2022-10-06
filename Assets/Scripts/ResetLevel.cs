@@ -9,7 +9,7 @@ public class ResetLevel : MonoBehaviour
     {
       if (other.gameObject.tag == "Player")
       {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
       }
     }
 }
