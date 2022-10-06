@@ -119,8 +119,11 @@ public class PlayerController : MonoBehaviour
 
   private void Jump()
   {
-    GetComponent<HingeJoint>().autoConfigureConnectedAnchor = false;
-    Destroy (GetComponent<HingeJoint>());
+    if (GetComponent<HingeJoint>() != null)
+    {
+      GetComponent<HingeJoint>().autoConfigureConnectedAnchor = false;
+      Destroy (GetComponent<HingeJoint>());
+    }
     rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
 
   }
