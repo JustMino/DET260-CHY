@@ -5,11 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class ResetLevel : MonoBehaviour
 {
-    void OnCollisionEnter(Collision other)
+  [SerializeField] GameObject FinishFacade;
+  [SerializeField] GameObject FailedMenu;
+
+  GameManager GM;
+
+  void Start()
+  {
+    GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+    Time.timeScale = 1f;
+  }
+
+  void OnCollisionEnter(Collision other)
+  {
+    if (other.gameObject.tag == "Player")
     {
-      if (other.gameObject.tag == "Player")
-      {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-      }
+      // StartCoroutine(slowtime());
+      Time.timeScale = 0f;
+      GM.GameOver = true;
+      FinishFacade.SetActive(true);
+      FailedMenu.SetActive(true);
     }
+  }
+
+  IEnumerator slowtime()
+  {
+    while (Time.timeScale > 0f)
+    {
+      Time.timeScale -= 0.1f;
+      yield return new WaitForSeconds(0.01f);
+    }
+  }
 }

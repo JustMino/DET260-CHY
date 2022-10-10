@@ -6,6 +6,8 @@ public class TruckMovement : MonoBehaviour
 {
   [Header("Needed Components")]
   Rigidbody rb;
+  AudioSource audio;
+  GameManager GM;
 
   [Header("Player")]
   public GameObject player;
@@ -15,6 +17,7 @@ public class TruckMovement : MonoBehaviour
   [SerializeField] float speedVariation = 0.2f;
   [SerializeField] float curSpeed;
   [SerializeField] Vector3 vel;
+  [SerializeField] bool onxaxis = false;
 
   [Header("Local Vector Settings so we can set each value specific to each Prefab")]
   [SerializeField] float lookDownThisFar = 0.5f;
@@ -22,12 +25,17 @@ public class TruckMovement : MonoBehaviour
   [Header("Particle related")]
   [SerializeField] GameObject[] particles = new GameObject[4];
 
+  public bool floating = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
       rb = GetComponent<Rigidbody>();
-      baseBusSpeed = Random.Range(baseBusSpeed - speedVariation, baseBusSpeed + speedVariation);
+      audio = GetComponent<AudioSource>();
+      GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+      StartCoroutine(delayaudio());
+      // baseBusSpeed = Random.Range(baseBusSpeed - speedVariation, baseBusSpeed + speedVariation);
       curSpeed = baseBusSpeed;
       for (int i = 0; i < 4; i++)
       {
@@ -38,11 +46,15 @@ public class TruckMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      if(GM.GameOver)
+      {
+        audio.Stop();
+      }
     }
 
     void FixedUpdate()
     {
+      floating = Physics.Raycast(transform.position, Vector3.down, lookDownThisFar);
       if (Physics.Raycast(transform.position, transform.up * -1f, lookDownThisFar))
       {
         // Debug.Log("Touched ground");
@@ -61,7 +73,10 @@ public class TruckMovement : MonoBehaviour
       }
       // rb.velocity = rb.velocity.normalized * 40f;
       vel = rb.velocity;
-      vel.z = Mathf.Clamp(vel.z, 0f, 40f);
+      if (onxaxis) vel.x = Mathf.Clamp(vel.x, -40f, 0f);
+      else vel.z = Mathf.Clamp(vel.z, 0f, 40f);
+      // vel.z = Mathf.Clamp(vel.z, 0f, 40f);
+      // vel.x = Mathf.Clamp(vel.x, 0f, 40f);
       rb.velocity = vel;
     }
 
@@ -72,5 +87,11 @@ public class TruckMovement : MonoBehaviour
         Destroy(player.GetComponent<HingeJoint>());
         player.GetComponent<Rigidbody>().mass = 0.01f;
       }
+    }
+
+    IEnumerator delayaudio()
+    {
+      yield return new WaitForSeconds(Random.value);
+      audio.Play();
     }
 }

@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
   [Header("Ground Check")]
   public float playerHeight;
   public LayerMask whatIsGround;
-  [SerializeField] bool grounded;
+  public bool grounded;
 
   public Transform orientation;
 
@@ -39,23 +39,27 @@ public class PlayerController : MonoBehaviour
 
   [SerializeField] Vector3 normalStruck;
 
+  GameManager GM;
+  CanvasUpdater canvasup;
+
   private void Start()
   {
-      rb = GetComponent<Rigidbody>();
-      rb.freezeRotation = true;
-
-      readyToJump = true;
+    GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+    canvasup = GameObject.Find("Canvas").GetComponent<CanvasUpdater>();
+    rb = GetComponent<Rigidbody>();
+    rb.freezeRotation = true;
+    readyToJump = true;
   }
 
   private void Update()
   {
       MyInput();
       SpeedControl();
+      // Time.timeScale = (Input.GetKey(KeyCode.E)) ? 0f : 1f;
   }
 
   private void FixedUpdate()
   {
-    // if (onTruck) rb.velocity = otherrb.velocity;
     MovePlayer();
     vel = rb.velocity;
     if (GetComponent<HingeJoint>() != null)
@@ -92,17 +96,21 @@ public class PlayerController : MonoBehaviour
       // on ground
       if(grounded)
       {
-        // rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.VelocityChange);
         if (GetComponent<HingeJoint>() != null)
         {
           GetComponent<HingeJoint>().autoConfigureConnectedAnchor = false;
+
           transform.Translate(moveDirection * 10f * Time.deltaTime);
           GetComponent<HingeJoint>().autoConfigureConnectedAnchor = true;
         }
       }
       // in air
       else if(!grounded)
-          rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Acceleration);
+      {
+        moveDirection.z *= 10f;
+        moveDirection.x *= 2.5f;
+        rb.AddForce(moveDirection * moveSpeed * airMultiplier, ForceMode.Acceleration);
+      }
   }
 
   private void SpeedControl()
@@ -161,6 +169,10 @@ public class PlayerController : MonoBehaviour
       onTruck = false;
       Destroy (GetComponent<HingeJoint>());
       rb.mass = 0.01f;
+      if (other.GetComponent<TruckMovement>().floating)
+      {
+        canvasup.JumpMidAir();
+      }
     }
   }
 }
