@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
       GetComponent<HingeJoint>().autoConfigureConnectedAnchor = false;
       Destroy (GetComponent<HingeJoint>());
     }
+    if (grounded && !onTruck) canvasup.JumpMidAir();
     rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
 
   }
@@ -142,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
   void OnCollisionEnter(Collision other)
   {
-    if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+    if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && other.gameObject.tag == "Truck")
     {
       grounded = true;
       ContactPoint otherContact = other.contacts[0];

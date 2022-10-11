@@ -15,16 +15,24 @@ public class CanvasUpdater : MonoBehaviour
   GameManager GM;
   LevelUnlocked LU;
 
+  GameObject IndividualPoints;
+  TextMeshProUGUI finalpoints;
+
+  bool adding = false;
 
   void Start()
   {
     GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     LU = GameObject.Find("LevelUnlock").GetComponent<LevelUnlocked>();
+    IndividualPoints = GameObject.Find("IndividualPoints");
+    finalpoints = GameObject.Find("Final Points").GetComponent<TextMeshProUGUI>();
     Facade.SetActive(false);
     EndMenu.SetActive(false);
     FailedMenu.SetActive(false);
     airtime.color = new Color(airtime.color.r, airtime.color.g, airtime.color.b, 0);
     midairtruck.color = new Color(midairtruck.color.r, midairtruck.color.g, midairtruck.color.b, 0);
+    IndividualPoints.SetActive(false);
+    finalpoints.gameObject.SetActive(false);
   }
 
   void Update()
@@ -69,7 +77,8 @@ public class CanvasUpdater : MonoBehaviour
     float xpos = (Random.Range(Screen.width*0.1f, Screen.width*0.9f));
     float ypos = (Random.Range(Screen.width*0.1f, Screen.height*0.9f));
     midairtruck.gameObject.transform.position = new Vector3 (xpos, ypos, 0f);
-    GM.totalscore += GM.midairtruckjumppoints;
+    midairtruck.text = "Midair Jump Bonus +" + GM.midairtruckjumppoints.ToString();
+    GM.totalmidairpoints += GM.midairtruckjumppoints;
     StartCoroutine(FadeInAndOut(midairtruck));
   }
 
@@ -117,5 +126,65 @@ public class CanvasUpdater : MonoBehaviour
   public void BackToMenu()
   {
     SceneManager.LoadScene("Menu");
+  }
+
+  public IEnumerator CalculatePoints()
+  {
+    finalpoints.gameObject.SetActive(true);
+    PointAddAnim("AIR TIME: ", GM.totalairtimescore, true);
+    yield return new WaitUntil(() => !adding);
+    PointAddAnim("TIME BONUS: ", timescore(), true);
+    yield return new WaitUntil(() => !adding);
+    PointAddAnim("MIDAIR BONUS: ", GM.totalmidairpoints, true);
+  }
+
+  void PointAddAnim(string s, int p, bool t)
+  {
+    adding = true;
+    IndividualPoints.transform.position = new Vector3 (Screen.width/2, (Screen.height/2)-140f, 0f);
+    TextMeshProUGUI txt = IndividualPoints.GetComponent<TextMeshProUGUI>();
+    txt.text = s + "+0";
+    IndividualPoints.SetActive(true);
+    GM.totalscore += p;
+    StartCoroutine(CountUp(txt, s, p, t));
+  }
+
+  IEnumerator CountUp(TextMeshProUGUI txt, string s, int p, bool t)
+  {
+    for (int i = 0; i < 25; i++)
+    {
+      txt.text = (t) ? (s + "+" + p/(25-i)) : (s + p/(25-i));
+      yield return new WaitForSecondsRealtime(0.015f);
+    }
+    yield return new WaitForSecondsRealtime(1.0f);
+    if (t) StartCoroutine(MoveText());
+  }
+
+  IEnumerator MoveText()
+  {
+    for (int i = 0; i < 11; i++)
+    {
+      IndividualPoints.transform.position = new Vector3 (Screen.width/2, (Screen.height/2)-140f - (5*i), 0f);
+      yield return new WaitForSecondsRealtime(0.01f);
+    }
+    StartCoroutine(CountUp(finalpoints, "TOTAL SCORE: ", GM.totalscore, false));
+    StartCoroutine(LockedMsgPopUp(1f, IndividualPoints.GetComponent<TextMeshProUGUI>()));
+    IndividualPoints.SetActive(false);
+    IndividualPoints.GetComponent<TextMeshProUGUI>().fontSize = 36f;
+    adding = false;
+  }
+
+  IEnumerator LockedMsgPopUp(float t, TextMeshProUGUI i)
+  {
+    while (i.fontSize > 0f)
+    {
+      i.fontSize -= (Time.deltaTime / t)*420f;
+      yield return new WaitForSeconds(0.000001f);
+    }
+  }
+
+  int timescore()
+  {
+    return (int)((60f/Time.timeSinceLevelLoad)*1000f);
   }
 }

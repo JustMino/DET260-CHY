@@ -23,8 +23,11 @@ public class GameManager : MonoBehaviour
   CanvasUpdater canvasup;
   [Header("Scores")]
   public int totalscore = 0;
+  public int totalairtimescore = 0;
   public float airtimescore = 0;
+  public int totalmidairpoints = 0;
   public int midairtruckjumppoints = 300;
+  public int speedpoints = 0;
   [SerializeField]bool shownairtime = false;
 
   [Header("Player")]
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
   {
     player = GameObject.Find("Player").GetComponent<PlayerController>();
     canvasup = GameObject.Find("Canvas").GetComponent<CanvasUpdater>();
+    GameOver = false;
   }
 
   void Update()
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
   void hideAirtime()
   {
     shownairtime = false;
-    totalscore += (!GameOver) ? (int)(airtimescore*100f) : 0;
+    totalairtimescore += (!GameOver) ? (int)(airtimescore*100f) : 0;
     airtimescore = 0;
     canvasup.FinishAirTime();
   }

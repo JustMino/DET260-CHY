@@ -68,6 +68,11 @@ public class LevelSelectMenu : MonoBehaviour
     else StartCoroutine(LockedMsgPopUp(1f, lockedmsg));
   }
 
+  public void GoToLvlX()
+  {
+    SceneManager.LoadScene("LvlX");
+  }
+
   public IEnumerator LockedMsgPopUp(float t, TextMeshProUGUI i)
   {
     i.fontSize = 0;
