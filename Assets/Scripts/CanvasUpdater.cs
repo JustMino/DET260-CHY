@@ -12,6 +12,7 @@ public class CanvasUpdater : MonoBehaviour
   [SerializeField] GameObject Facade;
   [SerializeField] GameObject EndMenu;
   [SerializeField] GameObject FailedMenu;
+  [SerializeField] GameObject PauseMenu;
   GameManager GM;
   LevelUnlocked LU;
 
@@ -19,6 +20,7 @@ public class CanvasUpdater : MonoBehaviour
   TextMeshProUGUI finalpoints;
 
   bool adding = false;
+  bool paused = false;
 
   void Start()
   {
@@ -33,6 +35,7 @@ public class CanvasUpdater : MonoBehaviour
     midairtruck.color = new Color(midairtruck.color.r, midairtruck.color.g, midairtruck.color.b, 0);
     IndividualPoints.SetActive(false);
     finalpoints.gameObject.SetActive(false);
+    PauseMenu.SetActive(false);
   }
 
   void Update()
@@ -49,6 +52,22 @@ public class CanvasUpdater : MonoBehaviour
       float xpos = Screen.width/2f + ((Screen.width/2f-Input.mousePosition.x)*-0.025f);
       float ypos = Screen.height/2f + ((Screen.height/2f-Input.mousePosition.y)*-0.025f);
       FailedMenu.transform.position = new Vector3 (xpos, ypos, 0);
+    }
+    if (Input.GetKeyDown(KeyCode.Escape))
+    {
+      if (!paused)
+      {
+        paused = true;
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PauseMenu.SetActive(true);
+        Facade.SetActive(true);
+      }
+      else
+      {
+        Resume();
+      }
     }
   }
 
@@ -109,9 +128,18 @@ public class CanvasUpdater : MonoBehaviour
     }
   }
 
+  public void Resume()
+  {
+    paused = false;
+    Time.timeScale = 1f;
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+    PauseMenu.SetActive(false);
+    Facade.SetActive(false);
+  }
+
   public void NextLevel()
   {
-    LU.Lvl2unlocked = true;
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
   }
 

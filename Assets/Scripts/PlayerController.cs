@@ -170,10 +170,6 @@ public class PlayerController : MonoBehaviour
       onTruck = false;
       Destroy (GetComponent<HingeJoint>());
       rb.mass = 0.01f;
-      if (other.GetComponent<TruckMovement>().floating)
-      {
-        canvasup.JumpMidAir();
-      }
     }
   }
 }
