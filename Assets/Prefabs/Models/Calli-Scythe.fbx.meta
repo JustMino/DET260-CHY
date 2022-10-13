@@ -1,0 +1,204 @@
+fileFormatVersion: 2
+guid: 3a908da6127d56943a938f4b4c413ce5
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: 7900829118493209954
+    second: Calli.001|Calli Scythe|Calli Scythe|1st shot CameraAction.002|Calli Scyth
+  - first:
+      74: 71606736301324993
+    second: Calli.001|Calli Scythe|Calli Scythe|2nd shotAction|Calli Scythe|2nd shotA
+  - first:
+      74: 2961499258912404361
+    second: Calli.001|Calli Scythe|Calli Scythe|Calli ScytheAction|Calli Scythe|Calli
+  - first:
+      74: -5711543494306486966
+    second: Calli.001|Calli Scythe|Calli Scythe|callirig|SmolcalliAnimationsRESOURCE|
+  - first:
+      74: 1826117095305586130
+    second: Calli.001|Calli Scythe|Calli Scythe|gurarig|smolguraAnimationsRESOURCE|sm
+  - first:
+      74: -1573966088560123266
+    second: Calli.001|Calli Scythe|Calli Scythe|inarig|smolinaAnimationsRESOURCE|smol
+  - first:
+      74: -5944911661901436896
+    second: Calli.001|Calli Scythe|Calli Scythe|Key.001|smolguraAnimationsRESOURCE|sm
+  - first:
+      74: 466743589368538014
+    second: Calli.001|Calli Scythe|Calli Scythe|Key.002|SmolAnimationsRESOURCE|SmolAn
+  - first:
+      74: -2056985330800276471
+    second: Calli.001|Calli Scythe|Calli Scythe|Key.003|SmolcalliAnimationsRESOURCE|S
+  - first:
+      74: 1418535539569979516
+    second: Calli.001|Calli Scythe|Calli Scythe|Key.004|SmolKiaraAnimationsRESOURCE|S
+  - first:
+      74: 2188181449001593237
+    second: Calli.001|Calli Scythe|Calli Scythe|Key.005|smolinaAnimationsRESOURCE|smo
+  - first:
+      74: 4223383392071708663
+    second: Calli.001|Calli Scythe|Calli Scythe|Key|smolguraAnimationsRESOURCE|smolgu
+  - first:
+      74: 7476758855451713542
+    second: Calli.001|Calli Scythe|Calli Scythe|SmolameRig|SmolAnimationsRESOURCE|Smo
+  - first:
+      74: -2154518995068712258
+    second: Calli.001|Calli Scythe|Calli Scythe|SmolKiaraRig|SmolKiaraAnimationsRESOU
+  - first:
+      74: 1107738861363352086
+    second: Calli.001|Calli Scythe|Calli Scythe|Torus.002Action|Calli Scythe|Torus.00
+  - first:
+      74: 685439385917704055
+    second: Calli.001|CameraAction
+  - first:
+      74: 2441212325464381201
+    second: Calli.001|Gura Trident|Gura Trident|1st shot CameraAction.002|Gura Triden
+  - first:
+      74: -6192729239875300247
+    second: Calli.001|Gura Trident|Gura Trident|2nd shotAction|Gura Trident|2nd shotA
+  - first:
+      74: -2969229236299218039
+    second: Calli.001|Gura Trident|Gura Trident|Calli ScytheAction|Gura Trident|Calli
+  - first:
+      74: 7697590136834646087
+    second: Calli.001|Gura Trident|Gura Trident|callirig|SmolcalliAnimationsRESOURCE|
+  - first:
+      74: 4509219564502575966
+    second: Calli.001|Gura Trident|Gura Trident|gurarig|smolguraAnimationsRESOURCE|sm
+  - first:
+      74: -358545282915201226
+    second: Calli.001|Gura Trident|Gura Trident|inarig|smolinaAnimationsRESOURCE|smol
+  - first:
+      74: 2770383617051815981
+    second: Calli.001|Gura Trident|Gura Trident|Key.001|smolguraAnimationsRESOURCE|sm
+  - first:
+      74: -4039162991469887233
+    second: Calli.001|Gura Trident|Gura Trident|Key.002|SmolAnimationsRESOURCE|SmolAn
+  - first:
+      74: 4631851776672806611
+    second: Calli.001|Gura Trident|Gura Trident|Key.003|SmolcalliAnimationsRESOURCE|S
+  - first:
+      74: -8963692509885167413
+    second: Calli.001|Gura Trident|Gura Trident|Key.004|SmolKiaraAnimationsRESOURCE|S
+  - first:
+      74: -7205603961896073127
+    second: Calli.001|Gura Trident|Gura Trident|Key.005|smolinaAnimationsRESOURCE|smo
+  - first:
+      74: 2325590203892745056
+    second: Calli.001|Gura Trident|Gura Trident|Key|smolguraAnimationsRESOURCE|smolgu
+  - first:
+      74: 5534045480648458141
+    second: Calli.001|Gura Trident|Gura Trident|SmolameRig|SmolAnimationsRESOURCE|Smo
+  - first:
+      74: -4823710357003260682
+    second: Calli.001|Gura Trident|Gura Trident|SmolKiaraRig|SmolKiaraAnimationsRESOU
+  - first:
+      74: -417640220690103304
+    second: Calli.001|Gura Trident|Gura Trident|Torus.002Action|Gura Trident|Torus.00
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Scythe
+    second: {fileID: 2100000, guid: 50068703c29e7524394ada59747bb95e, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
