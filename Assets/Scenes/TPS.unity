@@ -421,8 +421,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpForce: 350
-  WalkSpeed: 10
-  RunSpeed: 20
+  WalkSpeed: 5
+  RunSpeed: 10
+  groundDrag: 10
 --- !u!54 &1090563232
 Rigidbody:
   m_ObjectHideFlags: 0

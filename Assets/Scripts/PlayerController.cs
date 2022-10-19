@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
   [Header("Player Parameters")]
   bool isGrounded = true;
+  bool isCrouched = false;
   [SerializeField] float JumpForce = 500f;
   [SerializeField] float WalkSpeed = 10f;
   [SerializeField] float RunSpeed = 20f;
@@ -24,13 +25,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-      isGrounded = Physics.Raycast(transform.position, transform.up*-1f, 0.2f);
+      isGrounded = Physics.Raycast(transform.position, transform.up*-1f, 0.3f);
       rb.drag = (isGrounded) ? groundDrag : 0f;
-      if (Input.GetButtonDown("Jump"))
+      if (Input.GetButtonDown("Jump") && isGrounded)
       {
         anim.SetBool("Jumped", true);
         anim.SetTrigger("Jump");
         rb.AddForce(transform.up * JumpForce, ForceMode.Acceleration);
+      }
+      if (Input.GetButtonDown("Crouch") && isGrounded)
+      {
+        anim.SetTrigger("Crouch");
+        anim.SetBool("Crouched", !anim.GetBool("Crouched"));
+        isCrouched = !isCrouched;
       }
       Move();
       SpeedControl();
@@ -52,7 +59,8 @@ public class PlayerController : MonoBehaviour
         float forcenum = (Input.GetButton("Sprint")) ? RunSpeed : WalkSpeed;
         if(flatVel.magnitude > forcenum)
         {
-            Vector3 limitedVel = flatVel.normalized * forcenum;
+          float crouchspd = (isCrouched) ? 0.1f : 1f;
+            Vector3 limitedVel = flatVel.normalized * forcenum * crouchspd;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
