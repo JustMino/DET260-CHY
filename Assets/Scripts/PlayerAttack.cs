@@ -18,18 +18,30 @@ public class PlayerAttack : MonoBehaviour
   {
     public int dmg = 10;
     public GameObject atkPoint;
+    public Vector3 hitboxsize = new Vector3 (0.5f, 0.2f, 0.8f);
+    public Vector3 t;
+  }
+
+  [System.Serializable]
+  public class heavyparam
+  {
+    public int dmg = 15;
+    public GameObject atkPoint;
     public Vector3 hitboxsize = new Vector3 (1.0f, 1.0f, 1.0f);
     public Vector3 t;
   }
 
   public lightparam LightParam = new lightparam();
+  public heavyparam HeavyParam = new heavyparam();
   // Start is called before the first frame update
   void Start()
   {
     anim = GetComponent<Animator>();
     LightParam.atkPoint = GameObject.Find("Hitbox");
+    HeavyParam.atkPoint = GameObject.Find("HeavyHitbox");
     m_Started = true;
     LightParam.t = LightParam.atkPoint.transform.position;
+    HeavyParam.t = HeavyParam.atkPoint.transform.position;
   }
 
   // Update is called once per frame
@@ -43,6 +55,11 @@ public class PlayerAttack : MonoBehaviour
       anim.SetBool("Side(True=Right)", !anim.GetBool("Side(True=Right)"));
       anim.SetTrigger("Punch");
     }
+    if(Input.GetButtonDown("Heavy") && canattack)
+    {
+      canattack = false;
+      anim.SetTrigger("Kick");
+    }
   }
 
   public void LightHitCheck()
@@ -55,6 +72,16 @@ public class PlayerAttack : MonoBehaviour
     }
   }
 
+  public void HeavyHitCheck()
+  {
+    Collider[] hit = Physics.OverlapBox(HeavyParam.atkPoint.transform.position, LightParam.hitboxsize, transform.rotation, enemylayers);
+    foreach (var hitCollider in hit)
+    {
+      EnemyHealth enemyhealth = hitCollider.GetComponent<EnemyHealth>();
+      enemyhealth.Damage(HeavyParam.dmg);
+    }
+  }
+
   public void resetatkcooldown()
   {
     canattack = true;
@@ -63,6 +90,6 @@ public class PlayerAttack : MonoBehaviour
   void OnDrawGizmos()
   {
     Gizmos.color = Color.red;
-    if (m_Started) Gizmos.DrawWireCube(LightParam.atkPoint.transform.position, LightParam.hitboxsize);
+    if (m_Started) Gizmos.DrawWireCube(HeavyParam.atkPoint.transform.position, HeavyParam.hitboxsize);
   }
 }

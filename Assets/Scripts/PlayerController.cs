@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
       rb.drag = (isGrounded) ? groundDrag : 0f;
       if (Input.GetButtonDown("Jump") && isGrounded)
       {
-        anim.SetBool("Jumped", true);
-        anim.SetTrigger("Jump");
         rb.AddForce(transform.up * JumpForce, ForceMode.Acceleration);
       }
       if (Input.GetButtonDown("Crouch") && isGrounded)
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimParam()
     {
-      anim.SetFloat("Velocity", rb.velocity.magnitude);
+      anim.SetFloat("Velocity", Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2f) + Mathf.Pow(rb.velocity.z, 2f)));
       if (isGrounded) anim.SetBool("Jumped", false);
       anim.SetBool("isGrounded", isGrounded);
     }
