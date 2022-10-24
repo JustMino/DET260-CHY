@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
   [Header("Needed Components")]
   Animator anim;
   Rigidbody rb;
+  [SerializeField]GameObject campiv;
 
   [Header("Player Parameters")]
   bool isGrounded = true;
@@ -15,12 +16,15 @@ public class PlayerController : MonoBehaviour
   [SerializeField] float WalkSpeed = 10f;
   [SerializeField] float RunSpeed = 20f;
   [SerializeField] float groundDrag = 10f;
+  [SerializeField] Vector3 moveDirection;
+  [SerializeField] float rotationspeed = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        campiv = GameObject.Find("CameraPivot");
     }
 
     void Update()
@@ -28,9 +32,7 @@ public class PlayerController : MonoBehaviour
       isGrounded = Physics.Raycast(transform.position, transform.up*-1f, 0.3f);
       rb.drag = (isGrounded) ? groundDrag : 0f;
       if (Input.GetButtonDown("Jump") && isGrounded)
-      {
         rb.AddForce(transform.up * JumpForce, ForceMode.Acceleration);
-      }
       if (Input.GetButtonDown("Crouch") && isGrounded)
       {
         anim.SetTrigger("Crouch");
@@ -46,9 +48,19 @@ public class PlayerController : MonoBehaviour
     {
       float horizontalInput = Input.GetAxisRaw("Horizontal");
       float verticalInput = Input.GetAxisRaw("Vertical");
-      Vector3 moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+      float vflip = (verticalInput < 0) ? -1f : 1f;
+      float hflip = (horizontalInput < 0) ? -1f : 1f;
+      moveDirection = transform.forward * verticalInput * vflip + transform.forward * horizontalInput * hflip;
       float forcenum = (Input.GetButton("Sprint")) ? RunSpeed : WalkSpeed;
+      rotatePlayer(horizontalInput, verticalInput);
       rb.AddForce(moveDirection.normalized * forcenum * 10f, ForceMode.Force);
+    }
+
+    void rotatePlayer(float h, float v)
+    {
+      var step = Time.deltaTime * rotationspeed;
+      Quaternion targetrot = Quaternion.Euler(new Vector3 (0f, Mathf.Atan2(h, v) * 57.2883514f - campiv.transform.rotation.y * Mathf.Rad2Deg, 0f));
+      transform.rotation = Quaternion.RotateTowards(transform.rotation, targetrot, step);
     }
 
     private void SpeedControl()
@@ -66,7 +78,6 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimParam()
     {
       anim.SetFloat("Velocity", Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2f) + Mathf.Pow(rb.velocity.z, 2f)));
-      if (isGrounded) anim.SetBool("Jumped", false);
       anim.SetBool("isGrounded", isGrounded);
     }
 }

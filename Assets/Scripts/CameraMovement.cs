@@ -11,6 +11,8 @@ public class CameraMovement : MonoBehaviour
   float xRotation;
   float yRotation;
 
+  [SerializeField] float damping = 10f;
+
   private void Start()
   {
     Cursor.lockState = CursorLockMode.Locked;
@@ -27,7 +29,7 @@ public class CameraMovement : MonoBehaviour
     xRotation -= mouseY;
     xRotation = Mathf.Clamp(xRotation, 0f, 25f);
 
-    transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-    orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0), Time.deltaTime * damping);
+    orientation.rotation = Quaternion.Lerp(orientation.rotation, Quaternion.Euler(0, yRotation, 0), Time.deltaTime * damping);
   }
 }

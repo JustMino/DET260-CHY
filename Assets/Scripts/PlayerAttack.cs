@@ -8,7 +8,6 @@ public class PlayerAttack : MonoBehaviour
   Animator anim;
 
   [Header("Player Parameters")]
-  int atkcount = 0;
   bool m_Started;
   bool canattack = true;
   [SerializeField] LayerMask enemylayers;
