@@ -68,6 +68,16 @@ public class PlayerAttack : MonoBehaviour
     {
       EnemyHealth enemyhealth = hitCollider.GetComponent<EnemyHealth>();
       enemyhealth.Damage(LightParam.dmg);
+      if (enemyhealth.EnemyID == 1)
+      {
+        GingyEnemyAI ai = hitCollider.GetComponent<GingyEnemyAI>();
+        ai.Stun(0.5f);
+      }
+      else
+      {
+        NewGingyEnemyAI ai = hitCollider.GetComponent<NewGingyEnemyAI>();
+        ai.Stun(0.5f);
+      }
     }
   }
 
@@ -78,6 +88,16 @@ public class PlayerAttack : MonoBehaviour
     {
       EnemyHealth enemyhealth = hitCollider.GetComponent<EnemyHealth>();
       enemyhealth.Damage(HeavyParam.dmg);
+      if (enemyhealth.EnemyID == 1)
+      {
+        GingyEnemyAI ai = hitCollider.GetComponent<GingyEnemyAI>();
+        ai.Stun(1f);
+      }
+      else
+      {
+        NewGingyEnemyAI ai = hitCollider.GetComponent<NewGingyEnemyAI>();
+        ai.Stun(1f);
+      }
     }
   }
 
