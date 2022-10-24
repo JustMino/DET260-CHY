@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     void rotatePlayer(float h, float v)
     {
       var step = Time.deltaTime * rotationspeed;
-      Quaternion targetrot = Quaternion.Euler(new Vector3 (0f, Mathf.Atan2(h, v) * 57.2883514f - campiv.transform.rotation.y * Mathf.Rad2Deg, 0f));
+      Quaternion targetrot = Quaternion.Euler(new Vector3 (0f, Mathf.Atan2(h, v) * 57.2883514f, 0f));
       transform.rotation = Quaternion.RotateTowards(transform.rotation, targetrot, step);
     }
 
