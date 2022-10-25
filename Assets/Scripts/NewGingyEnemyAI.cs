@@ -1,45 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NewGingyEnemyAI : MonoBehaviour
 {
-  UnityEngine.AI.NavMeshAgent nav;
+  NavMeshAgent nav;
   [SerializeField]
   GameObject target;
-  bool m_Started;
 
-  GameObject atkPoint;
   public float minDistanceSqr = 5f;
   Vector3 hitboxsize = new Vector3 (1.0f, 1.0f, 1.0f);
   [SerializeField]
   float dis;
-  [SerializeField]
-  LayerMask playerMask;
-  bool canattack = true;
+  int stuncount = 0;
 
-  int hitdmg = 10;
-
-  float atkcooldown = 5f;
+  bool Stunned = false;
 
   Animator anim;
     // Start is called before the first frame update
     void Start()
     {
       anim = GetComponent<Animator>();
-      target = GameObject.Find("Player");
-      atkPoint = transform.Find("AttackPoint").gameObject;
-      nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+      target = GameObject.Find("ShishiroBotan");
+      nav = GetComponent<NavMeshAgent>();
       SetDestination();
-      m_Started = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-      LookAtPlayer();
-      SetDestination();
-      Attack();
+      if (!Stunned)
+      {
+        LookAtPlayer();
+        SetDestination();
+      }
+      UpdateAnimParam();
+      if (stuncount == 0)
+      {
+        Stunned = false;
+        anim.SetBool("Stunned", false);
+      }
+      else
+      {
+        Stunned = true;
+        anim.SetBool("Stunned", true);
+      }
     }
 
     void SetDestination()
@@ -51,31 +57,6 @@ public class NewGingyEnemyAI : MonoBehaviour
       nav.isStopped = (sqrDistance <= minDistanceSqr);
     }
 
-    void Attack()
-    {
-      dis = Vector3.Distance(target.transform.position, transform.position);
-      if (canattack && dis <= 2.0f)
-      {
-        canattack = false;
-        anim.SetTrigger("Attack");
-        Collider[] hit = Physics.OverlapBox(atkPoint.transform.position, hitboxsize, Quaternion.identity, playerMask);
-        foreach(var hitCollider in hit)
-        {
-          PlayerHealth playerhealth = hitCollider.GetComponent<PlayerHealth>();
-          playerhealth.Damage(hitdmg);
-        }
-        StartCoroutine(atkcooldowntime());
-      }
-    }
-
-    void OnDrawGizmos()
-    {
-      Gizmos.color = Color.red;
-        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
-        if (m_Started)
-          Gizmos.DrawWireCube(atkPoint.transform.position, hitboxsize);
-    }
-
     void LookAtPlayer()
     {
       var lookPos = target.transform.position - transform.position;
@@ -84,23 +65,15 @@ public class NewGingyEnemyAI : MonoBehaviour
       transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1f);
     }
 
-    IEnumerator atkcooldowntime()
+    private void UpdateAnimParam()
     {
-      yield return new WaitForSeconds(atkcooldown);
-      canattack = true;
+      anim.SetFloat("Velocity", Mathf.Sqrt(Mathf.Pow(nav.velocity.x, 2f) + Mathf.Pow(nav.velocity.z, 2f)));
     }
 
     public IEnumerator Stun(float time)
     {
-      canattack = false;
-      anim.SetBool("Stunned", true);
+      stuncount++;
       yield return new WaitForSeconds(time);
-      anim.SetBool("Stunned", false);
-      canattack = true;
-    }
-
-    private void UpdateAnimParam()
-    {
-      anim.SetFloat("Velocity", Mathf.Sqrt(Mathf.Pow(nav.velocity.x, 2f) + Mathf.Pow(nav.velocity.z, 2f)));
+      stuncount--;
     }
 }

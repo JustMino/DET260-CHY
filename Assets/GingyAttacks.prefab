@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &417796538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417796539}
+  m_Layer: 3
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417796539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417796538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5616659798687735440}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &336021938996336906
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8596043585051890000}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5373964844597803693}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightToeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9095932012458861548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6838619902626296457}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657658770460217339}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4795473312897179357}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8608524466833176754}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385438886472159682}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6507011000319044775}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4339691674045487003}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6643063582114713179}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8936481870153547392}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +409,7 @@ Transform:
   m_GameObject: {fileID: 4650239350997443521}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6838619902626296457}
@@ -395,7 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3078315744512706908}
   - component: {fileID: 8952494120502049505}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 4790476081917512267}
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
   m_LocalPosition: {x: -0, y: 0.057623103, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5616659798687735440}
@@ -504,7 +535,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5616659798687735440}
-  m_Layer: 0
+  - component: {fileID: 695868270827832834}
+  - component: {fileID: 695868270827832830}
+  - component: {fileID: 695868270827832831}
+  - component: {fileID: 695868270827832832}
+  - component: {fileID: 695868270827832833}
+  m_Layer: 3
   m_Name: GingyAttacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,14 +556,104 @@ Transform:
   m_GameObject: {fileID: 5096301233821418538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.8000097, y: 0.000020503998, z: 6.1552672}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3078315744512706908}
   - {fileID: 8936481870153547392}
+  - {fileID: 417796539}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &695868270827832834
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096301233821418538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.563508
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.77847314, z: 0}
+--- !u!95 &695868270827832830
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096301233821418538}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8cea133fb796c4149af8623a0b7e27e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &695868270827832831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096301233821418538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f00c34ad9c845149a81d8b08892dc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curhealth: 0
+  maxhealth: 150
+  EnemyID: 0
+--- !u!114 &695868270827832832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096301233821418538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5420f5a8d3e0e48abeccacada19c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minDistanceSqr: 5
+  dis: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!195 &695868270827832833
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096301233821418538}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5236228970451606876
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1337252548151087102}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3960763362812880741}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1275145833941348164}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3267385456287822146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7386417848016929725}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1176397438027888626}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 205012549764493553}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Spine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1217780890976856515}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3506129051986349126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,7 +950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2502165731671091682}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2264320266083130341}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gingy1_LeftToeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}

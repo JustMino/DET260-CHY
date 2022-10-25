@@ -25,6 +25,8 @@ public class GingyEnemyAI : MonoBehaviour
 
   float atkcooldown = 5f;
 
+  int stuncount = 0;
+
   Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,16 @@ public class GingyEnemyAI : MonoBehaviour
         Attack();
       }
       UpdateAnimParam();
+      if (stuncount == 0)
+      {
+        Stunned = false;
+        anim.SetBool("Stunned", false);
+      }
+      else
+      {
+        Stunned = true;
+        anim.SetBool("Stunned", true);
+      }
     }
 
     void SetDestination()
@@ -61,7 +73,7 @@ public class GingyEnemyAI : MonoBehaviour
     void Attack()
     {
       dis = Vector3.Distance(target.transform.position, transform.position);
-      if (canattack && dis <= 2.0f)
+      if (canattack && dis <= 3.0f)
       {
         canattack = false;
         anim.SetTrigger("Attack");
@@ -99,11 +111,9 @@ public class GingyEnemyAI : MonoBehaviour
 
     public IEnumerator Stun(float time)
     {
-      Stunned = false;
-      anim.SetBool("Stunned", true);
+      stuncount++;
       yield return new WaitForSeconds(time);
-      anim.SetBool("Stunned", false);
-      Stunned = true;
+      stuncount--;
     }
 
     private void UpdateAnimParam()

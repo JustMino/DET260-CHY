@@ -59,8 +59,15 @@ public class PlayerController : MonoBehaviour
     void rotatePlayer(float h, float v)
     {
       var step = Time.deltaTime * rotationspeed;
-      Quaternion targetrot = Quaternion.Euler(new Vector3 (0f, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0f));
-      transform.rotation = Quaternion.RotateTowards(transform.rotation, targetrot, step);
+      if (h == 0 && v == 0)
+      {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, campiv.transform.rotation, step);
+      }
+      else
+      {
+        Quaternion targetrot = Quaternion.Euler(new Vector3 (0f, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0f));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetrot, step);
+      }
     }
 
     private void SpeedControl()

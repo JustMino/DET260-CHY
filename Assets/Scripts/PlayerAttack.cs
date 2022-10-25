@@ -63,9 +63,10 @@ public class PlayerAttack : MonoBehaviour
 
   public void LightHitCheck()
   {
-    Collider[] hit = Physics.OverlapBox(LightParam.atkPoint.transform.position, LightParam.hitboxsize, transform.rotation, enemylayers);
+    Collider[] hit = Physics.OverlapBox(HeavyParam.atkPoint.transform.position, LightParam.hitboxsize, transform.rotation, enemylayers);
     foreach(var hitCollider in hit)
     {
+      Debug.Log("HIT");
       EnemyHealth enemyhealth = hitCollider.GetComponent<EnemyHealth>();
       enemyhealth.Damage(LightParam.dmg);
       if (enemyhealth.EnemyID == 1)
@@ -86,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
     Collider[] hit = Physics.OverlapBox(HeavyParam.atkPoint.transform.position, LightParam.hitboxsize, transform.rotation, enemylayers);
     foreach (var hitCollider in hit)
     {
+      Debug.Log("HIT");
       EnemyHealth enemyhealth = hitCollider.GetComponent<EnemyHealth>();
       enemyhealth.Damage(HeavyParam.dmg);
       if (enemyhealth.EnemyID == 1)
