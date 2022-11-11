@@ -14,8 +14,8 @@ public class UpdatePlayerParams : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.SetInt("HorizontalInput", Input.GetAxisRaw("Horizontal"));
-        anim.SetInt("VerticalInput", Input.GetAxisRaw("Vertical"));
-        anim.SetBool("Sprint", (Input.GetButton("Sprint")) ? true : false);
+        anim.SetInteger("HorizontalInput", (int)Input.GetAxisRaw("Horizontal"));
+        anim.SetInteger("VerticalInput", (int)Input.GetAxisRaw("Vertical"));
+        anim.SetBool("Sprinting", (Input.GetButton("Sprint")) ? true : false);
     }
 }
