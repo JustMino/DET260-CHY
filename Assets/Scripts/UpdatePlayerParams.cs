@@ -20,5 +20,7 @@ public class UpdatePlayerParams : MonoBehaviour
         anim.SetInteger("VerticalInput", (int)Input.GetAxisRaw("Vertical"));
         anim.SetBool("Sprinting", (Input.GetButton("Sprint")) ? true : false);
         if (player.grounded && Input.GetButtonDown("Jump")) anim.SetTrigger("Jump");
+        anim.SetFloat("TestH", Input.GetAxis("Horizontal"));
+        anim.SetFloat("TestV", Input.GetAxis("Vertical"));
     }
 }
