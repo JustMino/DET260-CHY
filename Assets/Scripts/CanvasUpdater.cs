@@ -1,218 +1,125 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class CanvasUpdater : MonoBehaviour
 {
-  [SerializeField] TextMeshProUGUI midairtruck;
-  public TextMeshProUGUI airtime;
-  [SerializeField] GameObject Facade;
-  [SerializeField] GameObject EndMenu;
-  [SerializeField] GameObject FailedMenu;
-  [SerializeField] GameObject PauseMenu;
-  GameManager GM;
-  LevelUnlocked LU;
 
-  GameObject IndividualPoints;
-  TextMeshProUGUI finalpoints;
+  public TextMeshProUGUI popup;
 
-  bool adding = false;
-  bool paused = false;
-
-  void Start()
+  public enum InteractState
   {
-    GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-    LU = GameObject.Find("LevelUnlock").GetComponent<LevelUnlocked>();
-    IndividualPoints = GameObject.Find("IndividualPoints");
-    finalpoints = GameObject.Find("Final Points").GetComponent<TextMeshProUGUI>();
-    Facade.SetActive(false);
-    EndMenu.SetActive(false);
-    FailedMenu.SetActive(false);
-    airtime.color = new Color(airtime.color.r, airtime.color.g, airtime.color.b, 0);
-    midairtruck.color = new Color(midairtruck.color.r, midairtruck.color.g, midairtruck.color.b, 0);
-    IndividualPoints.SetActive(false);
-    finalpoints.gameObject.SetActive(false);
-    PauseMenu.SetActive(false);
+    PickupKey1,
+    PickupKey2,
+    PickupKey3,
+    PickupKey4,
+    OpenDoor,
+    DONE
   }
 
-  void Update()
+  public enum NoAccessCard
   {
-    UpdateAirtimeScore();
-    if (EndMenu.activeInHierarchy)
+    NoKey1,
+    NoKey2,
+    NoKey3,
+    NoKey4
+  }
+
+  public InteractState textstate;
+
+  public NoAccessCard nocard;
+
+  public bool showtext = false;
+  public bool error = false;
+
+  InventoryManager im;
+
+  [SerializeField] GameObject Key1Icon;
+  [SerializeField] GameObject Key2Icon;
+    // Start is called before the first frame update
+    void Start()
     {
-      float xpos = Screen.width/2f + ((Screen.width/2f-Input.mousePosition.x)*-0.025f);
-      float ypos = Screen.height/2f + ((Screen.height/2f-Input.mousePosition.y)*-0.025f);
-      EndMenu.transform.position = new Vector3 (xpos, ypos, 0);
+      im = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+      Key1Icon.SetActive(im.GotKey1);
+      Key2Icon.SetActive(im.GotKey2);
     }
-    if (FailedMenu.activeInHierarchy)
+
+    // Update is called once per frame
+    void Update()
     {
-      float xpos = Screen.width/2f + ((Screen.width/2f-Input.mousePosition.x)*-0.025f);
-      float ypos = Screen.height/2f + ((Screen.height/2f-Input.mousePosition.y)*-0.025f);
-      FailedMenu.transform.position = new Vector3 (xpos, ypos, 0);
+      Key1Icon.SetActive(im.GotKey1);
+      Key2Icon.SetActive(im.GotKey2);
+        if (!showtext) popup.text = "";
+        else if (error)
+        {
+          switch (nocard)
+          {
+            case NoAccessCard.NoKey1:
+              popup.text = "Level 1 Keycard required.";
+              break;
+            case NoAccessCard.NoKey2:
+              popup.text = "Level 2 Keycard required.";
+              break;
+            case NoAccessCard.NoKey3:
+              popup.text = "Level 3 Keycard required.";
+              break;
+            case NoAccessCard.NoKey4:
+              popup.text = "Keypad Input required.";
+              break;
+          }
+        }
+        else
+        {
+          switch (textstate)
+          {
+            case InteractState.PickupKey1:
+              popup.text = "Press E to pick up Level 1 Keycard";
+              break;
+            case InteractState.PickupKey2:
+              popup.text = "Press E to pick up Level 2 Keycard";
+              break;
+            case InteractState.PickupKey3:
+              popup.text = "Press E to pickup Level 3 Keycard";
+              break;
+            case InteractState.PickupKey4:
+              popup.text = "Press E to input Keycode";
+              break;
+            case InteractState.OpenDoor:
+              popup.text = "Press E to open Door";
+              break;
+            case InteractState.DONE:
+              popup.text = "CONGRATULATIONS GAME COMPLETE";
+              break;
+          }
+        }
     }
-    if (Input.GetKeyDown(KeyCode.Escape))
+
+    void UpdateText(int cardtype)
     {
-      if (!paused)
-      {
-        paused = true;
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        PauseMenu.SetActive(true);
-        Facade.SetActive(true);
-      }
-      else
-      {
-        Resume();
-      }
+      showtext = true;
+      if (cardtype == 1) textstate = InteractState.PickupKey1;
+      if (cardtype == 2) textstate = InteractState.PickupKey2;
+      if (cardtype == 3) textstate = InteractState.PickupKey3;
+      if (cardtype == 4) showtext = false;
+      if (cardtype == 5) textstate = InteractState.OpenDoor;
+      if (cardtype == 6) textstate = InteractState.PickupKey4;
     }
-  }
 
-  void UpdateAirtimeScore()
-  {
-    int temp = (int)(GM.airtimescore * 100);
-    float temp1 = (float)(temp/100f);
-    airtime.text = "Airtime Score: " + temp1.ToString();
-  }
-
-  public void ShowAirTime()
-  {
-    float xpos = (Random.Range(Screen.width*0.1f, Screen.width*0.9f));
-    float ypos = (Random.Range(Screen.width*0.1f, Screen.height*0.9f));
-    airtime.gameObject.transform.position = new Vector3 (xpos, ypos, 0f);
-    StartCoroutine(FadeTextToFullAlpha(0.1f, airtime));
-  }
-
-  public void FinishAirTime()
-  {
-    StartCoroutine(FadeTextToZeroAlpha(0.1f, airtime));
-  }
-
-  public void JumpMidAir()
-  {
-    float xpos = (Random.Range(Screen.width*0.1f, Screen.width*0.9f));
-    float ypos = (Random.Range(Screen.width*0.1f, Screen.height*0.9f));
-    midairtruck.gameObject.transform.position = new Vector3 (xpos, ypos, 0f);
-    midairtruck.text = "Midair Jump Bonus +" + GM.midairtruckjumppoints.ToString();
-    GM.totalmidairpoints += GM.midairtruckjumppoints;
-    StartCoroutine(FadeInAndOut(midairtruck));
-  }
-
-  IEnumerator FadeInAndOut(TextMeshProUGUI t)
-  {
-    StartCoroutine(FadeTextToFullAlpha(1f, t));
-    yield return new WaitForSecondsRealtime(2);
-    StartCoroutine(FadeTextToZeroAlpha(1f, t));
-  }
-
-  public IEnumerator FadeTextToFullAlpha(float t, TextMeshProUGUI i)
-  {
-    i.color = new Color(i.color.r, i.color.g, i.color.b, 0);
-    while (i.color.a < 1.0f)
+    IEnumerator NoAccess(int cardtype)
     {
-      i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.unscaledDeltaTime / t));
-      yield return null;
+      if (cardtype == 1) nocard = NoAccessCard.NoKey1;
+      if (cardtype == 2) nocard = NoAccessCard.NoKey2;
+      if (cardtype == 3) nocard = NoAccessCard.NoKey3;
+      if (cardtype == 4) nocard = NoAccessCard.NoKey4;
+      error = true;
+      yield return new WaitForSeconds(0.5f);
+      error = false;
     }
-  }
 
-  public IEnumerator FadeTextToZeroAlpha(float t, TextMeshProUGUI i)
-  {
-    i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
-    while (i.color.a > 0.0f)
+    void GameComplete()
     {
-      i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.unscaledDeltaTime / t));
-      yield return null;
+      showtext = true;
+      textstate = InteractState.DONE;
     }
-  }
-
-  public void Resume()
-  {
-    paused = false;
-    Time.timeScale = 1f;
-    Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
-    PauseMenu.SetActive(false);
-    Facade.SetActive(false);
-  }
-
-  public void NextLevel()
-  {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-  }
-
-  public void RestartLevel()
-  {
-    GM.GameOver = false;
-    Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-  }
-
-  public void BackToMenu()
-  {
-    SceneManager.LoadScene("Menu");
-  }
-
-  public IEnumerator CalculatePoints()
-  {
-    finalpoints.gameObject.SetActive(true);
-    PointAddAnim("AIR TIME: ", GM.totalairtimescore, true);
-    yield return new WaitUntil(() => !adding);
-    PointAddAnim("TIME BONUS: ", timescore(), true);
-    yield return new WaitUntil(() => !adding);
-    PointAddAnim("MIDAIR BONUS: ", GM.totalmidairpoints, true);
-  }
-
-  void PointAddAnim(string s, int p, bool t)
-  {
-    adding = true;
-    IndividualPoints.transform.position = new Vector3 (Screen.width/2, (Screen.height/2)-140f, 0f);
-    TextMeshProUGUI txt = IndividualPoints.GetComponent<TextMeshProUGUI>();
-    txt.text = s + "+0";
-    IndividualPoints.SetActive(true);
-    GM.totalscore += p;
-    StartCoroutine(CountUp(txt, s, p, t));
-  }
-
-  IEnumerator CountUp(TextMeshProUGUI txt, string s, int p, bool t)
-  {
-    for (int i = 0; i < 25; i++)
-    {
-      txt.text = (t) ? (s + "+" + p/(25-i)) : (s + p/(25-i));
-      yield return new WaitForSecondsRealtime(0.015f);
-    }
-    yield return new WaitForSecondsRealtime(1.0f);
-    if (t) StartCoroutine(MoveText());
-  }
-
-  IEnumerator MoveText()
-  {
-    for (int i = 0; i < 11; i++)
-    {
-      IndividualPoints.transform.position = new Vector3 (Screen.width/2, (Screen.height/2)-140f - (5*i), 0f);
-      yield return new WaitForSecondsRealtime(0.01f);
-    }
-    StartCoroutine(CountUp(finalpoints, "TOTAL SCORE: ", GM.totalscore, false));
-    StartCoroutine(LockedMsgPopUp(1f, IndividualPoints.GetComponent<TextMeshProUGUI>()));
-    IndividualPoints.SetActive(false);
-    IndividualPoints.GetComponent<TextMeshProUGUI>().fontSize = 36f;
-    adding = false;
-  }
-
-  IEnumerator LockedMsgPopUp(float t, TextMeshProUGUI i)
-  {
-    while (i.fontSize > 0f)
-    {
-      i.fontSize -= (Time.deltaTime / t)*420f;
-      yield return new WaitForSeconds(0.000001f);
-    }
-  }
-
-  int timescore()
-  {
-    return (int)((60f/Time.timeSinceLevelLoad)*1000f);
-  }
 }

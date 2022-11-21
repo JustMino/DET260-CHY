@@ -4,14 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Truck
-  - Goal
-  - Terrain
+  - Key1
+  - Key2
+  - Key3
+  - Keypad
+  - Keypad1
+  - End
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
   - 
