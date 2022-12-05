@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ScifiFacility/Scenes/scene_lightsOn.unity
+    path: Assets/Scenes/scene_lightsOn.unity
     guid: f279b7f1feabf4e6b9bf5ed6fb2d0241
   m_configObjects: {}

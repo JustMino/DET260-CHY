@@ -24,6 +24,7 @@ bool opened = false;
 
 	public RequiredCard card;
 	GameObject canvas;
+	public OcclusionPortal portal;
 
 	int required;
 
@@ -71,6 +72,7 @@ bool opened = false;
 				GetComponent<AudioSource> ().Play ();
 				Wing ["door_02_wing"].speed = 1;
 				Wing.Play ();
+				portal.open = true;
 				canvas.BroadcastMessage("UpdateText", 4);
 			}
 			else
@@ -88,9 +90,14 @@ bool opened = false;
 			Wing ["door_02_wing"].time = Wing ["door_02_wing"].length;
 			Wing ["door_02_wing"].speed = -1;
 			Wing.Play ();
+			StartCoroutine(WaitForDoorClose());
 		}
 
 	}
 
-
+		IEnumerator WaitForDoorClose()
+		{
+			yield return new WaitForSeconds(0.7f);
+			portal.open = false;
+		}
 }
